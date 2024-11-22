@@ -18,7 +18,8 @@ const Crear = ({ setListadoState }) => {
     setPeliState(peli);
    
    setListadoState((elementos)=>{
-    const nuevoListado= [...elementos,peli]
+    console.log(elementos, "elementos");
+    const nuevoListado=  Array.isArray(elementos) ? [...elementos, peli] : [peli];
     GuardarEnLocalStorage("pelis", nuevoListado);
     return nuevoListado
    });
