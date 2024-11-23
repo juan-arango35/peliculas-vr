@@ -32,7 +32,9 @@ const Crear = ({ setListadoState }) => {
     });
     //guarar en el local storage
     GuardarEnStorage("pelis", peli);
-  };
+  //limpiar el formulario
+  target.reset();
+  }
 
   return (
     <div className="add">

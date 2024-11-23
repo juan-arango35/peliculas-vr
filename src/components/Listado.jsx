@@ -13,25 +13,23 @@ const Listado = ({ listadoState, setListadoState }) => {
   
 const conseguirPeliculas=()=>{
     let peliculas = JSON.parse(localStorage.getItem("pelis"))
-    console.log(peliculas, "peliculas del listado");
-   
     setListadoState(peliculas); 
     return peliculas; 
 }
 
 const borrarPeli=(id)=>{
     //conseguir peliculas almacenadas
-    let pelis_almacenadas= conseguirPeliculas(); 
+    let pelisAlmacenadas= conseguirPeliculas(); 
 
     //filtrar esas peliculas para q elimine el array la que no quiero; 
-    let nuevo_array_pelis = pelis_almacenadas.filter(peli=> peli.id !== parseInt(id)); 
-    console.log(pelis_almacenadas, nuevo_array_pelis); 
+    let nuevoArrayPeliculas = pelisAlmacenadas.filter(peli=> peli.id !== parseInt(id)); 
 
-    //actuaizar estado del llistado
-    setListadoState(nuevo_array_pelis); 
+
+    //actuaizar estado del listado
+    setListadoState(nuevoArrayPeliculas); 
 
     //actualizar los datos en localStorage
-    localStorage.setItem('pelis', JSON.stringify(nuevo_array_pelis))
+    localStorage.setItem('pelis', JSON.stringify(nuevoArrayPeliculas))
 
 }
 
