@@ -1,36 +1,38 @@
 import React, { useState } from "react";
-import { GuardarEnLocalStorage } from "../helpers/GuardarEnLocalStorage";
+import { GuardarEnStorage } from "../helpers/GuardarEnLocalStorage";
 
 const Crear = ({ setListadoState }) => {
   const tituloComponente = "Añadir Película";
-  const [titulo, setTitulo] = useState(""); //estado del titulo
-  const [descripcion, setDescripcion] = useState(""); // estado de la descripcion
-  const [peliState, setPeliState] = useState({});
+  const [peliState, setPeliState] = useState({
+    titulo: "",
+    descripcion: "",
+  });
+
+  const { titulo, descripcion } = peliState;
 
   const conseguirDatosForm = (e) => {
     e.preventDefault();
+
+    //conseguir datos del formulario
+    let target = e.target;
+    let titulo = target.titulo.value;
+    let descripcion = target.descripcion.value;
     let peli = {
       id: new Date().getTime(),
-      titulo: e.target.titulo.value,
-      descripcion: e.target.descripcion.value,
+      titulo,
+      descripcion,
     };
 
+    //guardar el estado
     setPeliState(peli);
-   
-   setListadoState((elementos)=>{
-    console.log(elementos, "elementos");
-    const nuevoListado=  Array.isArray(elementos) ? [...elementos, peli] : [peli];
-    GuardarEnLocalStorage("pelis", nuevoListado);
-    return nuevoListado
-   });
-   //Mostar en consola
-   console.log(peliState, "estado de la pelicula nombre y descripcion");
-   
-   
- 
 
+    //actualizar el estado principal
+    setListadoState((elementos) => {
+      return [...elementos, peli];
+    });
+    //guarar en el local storage
+    GuardarEnStorage("pelis", peli);
   };
-
 
   return (
     <div className="add">
@@ -39,20 +41,11 @@ const Crear = ({ setListadoState }) => {
         {(titulo && descripcion) && "Has creado una Película " + titulo}
       </strong>
       <form onSubmit={conseguirDatosForm}>
-        <input
-          type="text"
-          placeholder="Titulo"
-          value={titulo}
-          id="titulo"
-          name="titulo"
-          onChange={(e) => setTitulo(e.target.value)}
-        />
+        <input type="text" placeholder="Titulo" id="titulo" name="titulo" />
         <textarea
           name="descripcion"
           id="descripcion"
           placeholder="Descripcion"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
         ></textarea>
         <input type="submit" id="save" value="guardar" />
       </form>

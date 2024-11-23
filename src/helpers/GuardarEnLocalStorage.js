@@ -1,18 +1,20 @@
-export const GuardarEnLocalStorage = (clave, nuevoElementos) => {
-  //conseguir los elementos qu tenemos en localstorage
-  let elementos = JSON.parse(localStorage.getItem(clave)) || [];
-  console.log(elementos, "pelicula traidas de localstorage");
+export const GuardarEnStorage=(clave, elemento)=>{
+  //conseguir o elelementos que ya tenemos en el ,localStorage.
+  let elementos = JSON.parse(localStorage.getItem(clave)); 
+  console.log(elementos)
 
-  //comporbar si es un array
-
-  if (Array.isArray(elementos)) {
-    //añadir dentro del array un elemento nuevo
-    elementos.push(nuevoElementos);
+  //comprobar si es un array}
+  if(Array.isArray(elementos)){
+    //Añadir dentro array un elemento nuevo; 
+    elementos.push(elemento)
   } else {
-    //crear un array con la nueva pelicula
-    elementos = [nuevoElementos];
+    //crear un array con la nueva pelicula.
+    elementos=[elemento]; 
   }
-  localStorage.setItem(clave, JSON.stringify(elementos));
 
-  return elementos;
-};
+  //guardar en el local storage;
+   localStorage.setItem(clave, JSON.stringify(elementos))
+
+  //devolver un objeto.
+  return elemento;
+}
