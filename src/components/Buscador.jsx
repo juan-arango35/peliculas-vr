@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { context } from "../context/context";
 
-const Buscador = ({ listadoState, setListadoState }) => {
-  const [busqueda, setBusqueda] = useState(""); // estado para la busqueda
-  const [noEncontrado, setNoEncontrado] = useState(false); //estado si no se encontro
+const Buscador = ({ children }) => {
+  const { listadoState, setListadoState,busqueda, 
+    setBusqueda,
+    noEncontrado, 
+    setNoEncontrado } = useContext(context);
 
   //funcion para buscar peli
   const buscarPelicula = (e) => {
@@ -27,23 +30,25 @@ const Buscador = ({ listadoState, setListadoState }) => {
     //actualiza el listado principal con lo que se logro filtar
     setListadoState(pelisEncontradas);
   };
-  return <div className="search">
-    <h3 className="title"> Buscardor : {busqueda}</h3>
-    {noEncontrado ===true && busqueda.length > 1 && (
+  return (
+    <div className="search">
+      <div>{children}</div>
+      <h3 className="title"> Buscardor : {busqueda}</h3>
+      {noEncontrado === true && busqueda.length > 1 && (
         <span>No se encontraron resultados</span>
-    )}
+      )}
 
-    <form>
+      <form>
         <input
-        type="text"
-        id="search_filed"
-        name="busqueda"
-        autoComplete="off"
-        onChange={buscarPelicula}
+          type="text"
+          id="search_filed"
+          name="busqueda"
+          autoComplete="off"
+          onChange={buscarPelicula}
         />
-    </form>
-
-  </div>;
+      </form>
+    </div>
+  );
 };
 
 export default Buscador;

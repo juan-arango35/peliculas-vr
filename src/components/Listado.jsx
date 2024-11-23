@@ -1,38 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Editar from "./Editar";
+import { context } from "../context/context";
 
-const Listado = ({ listadoState, setListadoState }) => {
+const Listado = () => {
   const [editar, setEditar] = useState(0);
+  const { listadoState, setListadoState, conseguirPeliculas, borrarPeli } =
+    useContext(context);
 
-  useEffect(()=>{
-    console.log("componente de listado de peliculas cargando!!")
-    conseguirPeliculas()
-}, [])
-
-
-  
-const conseguirPeliculas=()=>{
-    let peliculas = JSON.parse(localStorage.getItem("pelis"))
-    setListadoState(peliculas); 
-    return peliculas; 
-}
-
-const borrarPeli=(id)=>{
-    //conseguir peliculas almacenadas
-    let pelisAlmacenadas= conseguirPeliculas(); 
-
-    //filtrar esas peliculas para q elimine el array la que no quiero; 
-    let nuevoArrayPeliculas = pelisAlmacenadas.filter(peli=> peli.id !== parseInt(id)); 
-
-
-    //actuaizar estado del listado
-    setListadoState(nuevoArrayPeliculas); 
-
-    //actualizar los datos en localStorage
-    localStorage.setItem('pelis', JSON.stringify(nuevoArrayPeliculas))
-
-}
-
+  useEffect(() => {
+    console.log("componente de listado de peliculas cargando!!");
+    conseguirPeliculas();
+  }, []);
 
   return (
     <>
