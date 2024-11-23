@@ -6,7 +6,7 @@ const Crear = ({ setListadoState }) => {
   const [peliState, setPeliState] = useState({
     titulo: "",
     descripcion: "",
-  });
+  }); // estado de las peliculas
 
   const { titulo, descripcion } = peliState;
 
@@ -23,14 +23,14 @@ const Crear = ({ setListadoState }) => {
       descripcion,
     };
 
-    //guardar el estado
+    //guardar el estado de una sola pelicula
     setPeliState(peli);
 
-    //actualizar el estado principal
+    //actualizar el estado principal agrega la pelicula al final
     setListadoState((elementos) => {
       return [...elementos, peli];
     });
-    //guarar en el local storage
+    //guardar en el local storage
     GuardarEnStorage("pelis", peli);
   //limpiar el formulario
   target.reset();
